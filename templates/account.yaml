@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.account.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.account.name }}
+  replicas: {{ .Values.account.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.account.name }}
+    spec:
+      containers:
+      - name: {{ .Values.account.name }}
+        image: "{{ .Values.account.image.repository }}:{{ .Values.account.image.tag }}"
+        resources:
+          requests:
+            memory: "{{ .Values.account.resources.requests.memory }}"
+            cpu: "{{ .Values.account.resources.requests.cpu }}"
+          limits:
+            memory: "{{ .Values.account.resources.limits.memory }}"
+            cpu: "{{ .Values.account.resources.limits.cpu }}"
+        env:
+          - name: EnvType
+            value: "{{ .Values.account.envType }}"
+        ports:
+          - containerPort: {{ .Values.account.service.containerPort }}

@@ -1,0 +1,27 @@
+{{- if .Values.account.ingress.enabled -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.account.ingress.name }}
+  annotations:
+    kubernetes.io/ingress.class: {{ .Values.account.ingress.className | quote }}
+    nginx.ingress.kubernetes.io/ssl-redirect: {{ .Values.account.ingress.sslRedirect | quote }}
+    nginx.ingress.kubernetes.io/use-regex: {{ .Values.account.ingress.useRegex | quote }}
+    nginx.ingress.kubernetes.io/rewrite-target: {{ .Values.account.ingress.rewriteTarget }}
+spec:
+  tls:
+    - hosts:  
+      - {{ .Values.account.ingress.hosts.host }}
+  rules:
+    - host: {{ .Values.account.ingress.hosts.host }}
+      http:
+        paths:
+          - path: {{ .Values.account.ingress.hosts.path }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.account.service.name }}
+                port: 
+                  number: {{ .Values.account.service.containerPort }}
+{{- end -}}
+                 

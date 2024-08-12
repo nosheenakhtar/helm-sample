@@ -1,0 +1,31 @@
+account:
+  replicaCount: 5
+  name: accountsmicroservice-prod
+  image:
+    repository: 407109500870.dkr.ecr.me-south-1.amazonaws.com/account
+    tag: 2
+
+  resources:
+    requests:
+      memory: "64Mi"
+      cpu: "250m"
+    limits:
+      memory: "128Mi"
+      cpu: "500m"
+
+  envType: "1"
+
+  service:
+    name: account
+    containerPort: 80
+
+  ingress: 
+     name: "account-ingress"
+     enabled: true
+     className: "nginx"
+     sslRedirect: "true"
+     useRegex: "true"
+     rewriteTarget: "/$1"
+     hosts:
+        host: "demo-accounts-service.mavenx.gg"
+        path: "/(.*)"

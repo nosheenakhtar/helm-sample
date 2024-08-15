@@ -1,8 +1,8 @@
 account:
-  replicaCount: 5
-  name: accountsmicroservice-prod
+  replicaCount: as required
+  name: deployment
   image:
-    repository: 407109500870.dkr.ecr.me-south-1.amazonaws.com/account
+    repository: #########.dkr.ecr.me-south-1.amazonaws.com/account (docker image path )
     tag: 2
 
   resources:
@@ -16,16 +16,16 @@ account:
   envType: "1"
 
   service:
-    name: account
+    name: service
     containerPort: 80
 
   ingress: 
-     name: "account-ingress"
+     name: "ingress"
      enabled: true
      className: "nginx"
      sslRedirect: "true"
      useRegex: "true"
      rewriteTarget: "/$1"
      hosts:
-        host: "demo-accounts-service.mavenx.gg"
+        host: "example.com"
         path: "/(.*)"

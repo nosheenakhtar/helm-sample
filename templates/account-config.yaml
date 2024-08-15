@@ -1,18 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: account-config
+  name: config
 data:
   appsettings.json : |
                   {
-                  "AppSettings": {
-                  "EnvType": "1" 
-                   },
-                   "Logging": {
-                  "LogLevel": {
-                   "Default": "Information",
-                     "Microsoft.AspNetCore": "Warning"
-                   }
-                   },
-                   "AllowedHosts": "*"
+    
                    }
